@@ -5,7 +5,7 @@ FROM golang:latest AS build
 RUN mkdir -p $GOPATH/src/github.com/err0r500/go-realworld-clean
 ADD . $GOPATH/src/github.com/err0r500/go-realworld-clean
 WORKDIR $GOPATH/src/github.com/err0r500/go-realworld-clean
-RUN apt-get install go-dep
+RUN apt update & apt-get install go-dep
 RUN go get -u github.com/golang/dep/cmd/dep
 RUN dep ensure -vendor-only
 
