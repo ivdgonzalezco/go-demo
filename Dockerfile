@@ -5,9 +5,8 @@ FROM golang:latest AS build
 RUN mkdir -p $GOPATH/src/github.com/err0r500/go-realworld-clean
 ADD . $GOPATH/src/github.com/err0r500/go-realworld-clean
 WORKDIR $GOPATH/src/github.com/err0r500/go-realworld-clean
-RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-#RUN go get -u github.com/golang/dep/cmd/dep
-RUN dep init
+RUN go get -u github.com/golang/dep/cmd/dep
+WORKDIR $GOPATH/src/github.com/golang/dep/cmd/dep
 RUN dep ensure -vendor-only
 
 # Build
