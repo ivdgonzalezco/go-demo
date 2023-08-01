@@ -1,0 +1,35 @@
+name: Build CI Pipeline
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: Checkout code
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+        with:
+          fetch-depth: 0
+
+      - name: Run build
+        run: |
+          make
+          ls -alth
+
+      - name: Run build for docker images
+        run: |
+          make latest
+          docker images -a
+      
+      - name: Run test
+        run: |
+          make test
+
+      - name: Test coverage
+        run: |
+          ./testCoverage.sh
