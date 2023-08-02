@@ -1,0 +1,26 @@
+name: Build CI Pipeline
+
+on:
+  workflow_call:
+
+jobs:
+  release:
+    runs-on: self-hosted
+    steps:
+
+      - name: Run build
+        run: |
+          make
+          ls -alth
+
+      - name: Run build for docker images
+        run: |
+          docker images -a
+      
+      - name: Run test
+        run: |
+          make test
+
+      - name: Test coverage
+        run: |
+          ./testCoverage.sh
